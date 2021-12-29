@@ -1,0 +1,381 @@
+[
+  {
+    "inputs": [
+      { "internalType": "contract IERC20", "name": "_bund", "type": "address" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_admin",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_enabled",
+        "type": "bool"
+      }
+    ],
+    "name": "AdminAccessSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "betId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint8",
+        "name": "team",
+        "type": "uint8"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "BetPlaced",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint8",
+        "name": "_season",
+        "type": "uint8"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "matchId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "_teamAId",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "_teamBId",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_startingTime",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_poolsStartTime",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_poolsEndTime",
+        "type": "uint256"
+      }
+    ],
+    "name": "MatchAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint8",
+        "name": "teamId",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "team",
+        "type": "string"
+      }
+    ],
+    "name": "TeamAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint8",
+        "name": "teamId",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "team",
+        "type": "string"
+      }
+    ],
+    "name": "TeamUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "_betIds",
+    "outputs": [
+      { "internalType": "uint256", "name": "_value", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "matchId", "type": "uint256" },
+      {
+        "components": [
+          { "internalType": "bool", "name": "isBettingOn", "type": "bool" },
+          { "internalType": "uint8", "name": "season", "type": "uint8" },
+          { "internalType": "uint8", "name": "teamAId", "type": "uint8" },
+          { "internalType": "uint8", "name": "teamBId", "type": "uint8" },
+          {
+            "internalType": "uint256",
+            "name": "startingTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "poolsStartTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "poolsEndTime",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct Prediction.Match",
+        "name": "matchData",
+        "type": "tuple"
+      }
+    ],
+    "name": "addMatch",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256[]", "name": "matchIds", "type": "uint256[]" },
+      {
+        "components": [
+          { "internalType": "bool", "name": "isBettingOn", "type": "bool" },
+          { "internalType": "uint8", "name": "season", "type": "uint8" },
+          { "internalType": "uint8", "name": "teamAId", "type": "uint8" },
+          { "internalType": "uint8", "name": "teamBId", "type": "uint8" },
+          {
+            "internalType": "uint256",
+            "name": "startingTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "poolsStartTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "poolsEndTime",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct Prediction.Match[]",
+        "name": "matchData",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "addMatches",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint8", "name": "teamId", "type": "uint8" },
+      {
+        "components": [
+          { "internalType": "string", "name": "name", "type": "string" }
+        ],
+        "internalType": "struct Prediction.Team",
+        "name": "team",
+        "type": "tuple"
+      }
+    ],
+    "name": "addTeams",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "bets",
+    "outputs": [
+      { "internalType": "address", "name": "placerAddress", "type": "address" },
+      {
+        "internalType": "enum Prediction.PoolType",
+        "name": "pool",
+        "type": "uint8"
+      },
+      { "internalType": "uint256", "name": "matchId", "type": "uint256" },
+      { "internalType": "uint8", "name": "placedOn", "type": "uint8" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "bund",
+    "outputs": [
+      { "internalType": "contract IERC20", "name": "", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "admin", "type": "address" }
+    ],
+    "name": "isAdmin",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "matches",
+    "outputs": [
+      { "internalType": "bool", "name": "isBettingOn", "type": "bool" },
+      { "internalType": "uint8", "name": "season", "type": "uint8" },
+      { "internalType": "uint8", "name": "teamAId", "type": "uint8" },
+      { "internalType": "uint8", "name": "teamBId", "type": "uint8" },
+      { "internalType": "uint256", "name": "startingTime", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "poolsStartTime",
+        "type": "uint256"
+      },
+      { "internalType": "uint256", "name": "poolsEndTime", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "matchId", "type": "uint256" },
+      { "internalType": "uint8", "name": "team", "type": "uint8" },
+      {
+        "internalType": "enum Prediction.PoolType",
+        "name": "pool",
+        "type": "uint8"
+      }
+    ],
+    "name": "placeBet",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "admin", "type": "address" },
+      { "internalType": "bool", "name": "enabled", "type": "bool" }
+    ],
+    "name": "setAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }],
+    "name": "teams",
+    "outputs": [{ "internalType": "string", "name": "name", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint8", "name": "teamId", "type": "uint8" },
+      {
+        "components": [
+          { "internalType": "string", "name": "name", "type": "string" }
+        ],
+        "internalType": "struct Prediction.Team",
+        "name": "team",
+        "type": "tuple"
+      }
+    ],
+    "name": "updateTeams",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
