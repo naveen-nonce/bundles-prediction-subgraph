@@ -1,10 +1,10 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: Prediction
-    network: mumbai
+    network: testnet
     source:
       address: "0x0dc6A6e18af262DdA545924C68242aa88ED6714d"
       abi: Prediction
@@ -22,7 +22,7 @@ dataSources:
         - TeamUpdated
       abis:
         - name: Prediction
-          file: ./abis/Prediction.json
+          file: Prediction/abis/Prediction.json
       eventHandlers:
         - event: AdminAccessSet(address,bool)
           handler: handleAdminAccessSet
@@ -36,4 +36,4 @@ dataSources:
           handler: handleTeamAdded
         - event: TeamUpdated(indexed uint8,string)
           handler: handleTeamUpdated
-      file: ./src/mapping.ts
+      file: Prediction/Prediction.wasm
