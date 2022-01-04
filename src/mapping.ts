@@ -19,7 +19,11 @@ export function handleMatchAdded(event: MatchAdded): void {
   if (!match) {
     match = new Match(event.params.matchId.toString());
     match.startingTime = event.params._startingTime;
-    
+    match.teamAId = new BigInt(event.params._teamAId);
+    match.teamBId = new BigInt(event.params._teamBId);
+    match.season = new BigInt(event.params._season);
+    match.poolsStartTime = event.params._poolsStartTime;
+    match.poolsEndTime = event.params._poolsEndTime;
   }
   match.save();
 }

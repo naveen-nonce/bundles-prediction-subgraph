@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: Prediction
-    network: testnet
+    network: mumbai
     source:
       address: "0x0dc6A6e18af262DdA545924C68242aa88ED6714d"
       abi: Prediction
