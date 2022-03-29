@@ -4,20 +4,17 @@ schema:
 dataSources:
   - kind: ethereum
     name: Prediction
-    network: mumbai
+    network: bsc
     source:
-      address: "0x0dc6A6e18af262DdA545924C68242aa88ED6714d"
+      address: "0x59c403879c0f614ec49698ca7499c84cf337740f"
       abi: Prediction
-      startBlock: 23270829
+      startBlock: 16449605
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - AdminAccessSet
-        - BetPlaced
         - MatchAdded
-        - OwnershipTransferred
         - TeamAdded
         - TeamUpdated
       abis:
@@ -26,14 +23,22 @@ dataSources:
       eventHandlers:
         - event: AdminAccessSet(address,bool)
           handler: handleAdminAccessSet
-        - event: BetPlaced(indexed uint256,indexed uint8,indexed uint256)
-          handler: handleBetPlaced
-        - event: MatchAdded(indexed uint8,indexed uint256,uint8,uint8,uint256,uint256,uint256)
+        - event: PoolPredicted(indexed uint256,uint256[],uint16[],uint256,address)
+          handler: handlePoolPredicted
+        - event: PredictionUpdated(indexed uint256,uint256[],uint16[],uint256,address)
+          handler: handlePredictionUpdated
+        - event: MatchAdded(indexed uint8,uint256,indexed uint256)
           handler: handleMatchAdded
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: TeamAdded(indexed uint8,string)
-          handler: handleTeamAdded
-        - event: TeamUpdated(indexed uint8,string)
-          handler: handleTeamUpdated
+        - event: MatchUpdated(indexed uint8,uint256,indexed uint256)
+          handler: handleMatchUpdated
+        - event: LeagueAdded(indexed uint8,string,string)
+          handler: handleLeagueAdded
+        - event: PoolAdded(indexed uint256,uint256[],uint256,uint256,uint256)
+          handler: handlePoolAdded
+        - event: PoolUpdated(indexed uint256,uint256[],uint256,uint256,uint256)
+          handler: handlePoolUpdated
+        - event: RewardedPools(uint256,address[],uint256[])
+          handler: handleRewardedPools
+        - event: GradedPools(uint256,uint16[])
+          handler: handleGradedPools
       file: ./src/mapping.ts

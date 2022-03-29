@@ -1,14 +1,50 @@
-type Match @entity {
+type Pool @entity {
   id: ID!
-  season: BigInt!
-  teamAId: BigInt!
-  teamBId: BigInt!
-  startingTime: BigInt!
-  poolsStartTime: BigInt!
-  poolsEndTime: BigInt!
+  matches: [Match!]!
+  startTime: BigInt!
+  endTime: BigInt!
+  fee: BigInt!
+  participants: [Bytes!]!
+  results: [Int!]!
+  totalParticipants: BigInt!
+  totalAmount: BigInt!
+  predictions: [Prediction!]!
+  rewardRecipients: [Bytes!]!
+  rewardAmounts: [BigInt!]!
 }
 
-type Team @entity {
+type Match @entity {
+  id: ID!
+  league: League!
+  espnMatchId: BigInt!
+}
+
+type League @entity {
   id: ID!
   name: String!
+  sport: String!
+}
+
+type Prediction @entity {
+  id: ID!
+  predictor: Bytes!
+  pool: BigInt!
+  matchIds: [BigInt!]!
+  choices: [Int!]!
+  fee: BigInt!
+}
+
+type User @entity {
+  id: ID!
+  address: Bytes!
+  pools: [BigInt!]!
+  poolsRewarded: [BigInt!]!
+  rewardAmounts: [BigInt!]!
+  predictions: [Prediction!]!
+}
+
+type Admin @entity {
+  id: ID!
+  address: Bytes!
+  enabled: Boolean!
 }

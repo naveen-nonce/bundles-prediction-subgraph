@@ -32,29 +32,77 @@ export class AdminAccessSet__Params {
   }
 }
 
-export class BetPlaced extends ethereum.Event {
-  get params(): BetPlaced__Params {
-    return new BetPlaced__Params(this);
+export class GradedPools extends ethereum.Event {
+  get params(): GradedPools__Params {
+    return new GradedPools__Params(this);
   }
 }
 
-export class BetPlaced__Params {
-  _event: BetPlaced;
+export class GradedPools__Params {
+  _event: GradedPools;
 
-  constructor(event: BetPlaced) {
+  constructor(event: GradedPools) {
     this._event = event;
   }
 
-  get betId(): BigInt {
+  get poolId(): BigInt {
     return this._event.parameters[0].value.toBigInt();
   }
 
-  get team(): i32 {
-    return this._event.parameters[1].value.toI32();
+  get results(): Array<i32> {
+    return this._event.parameters[1].value.toI32Array();
+  }
+}
+
+export class LeagueAdded extends ethereum.Event {
+  get params(): LeagueAdded__Params {
+    return new LeagueAdded__Params(this);
+  }
+}
+
+export class LeagueAdded__Params {
+  _event: LeagueAdded;
+
+  constructor(event: LeagueAdded) {
+    this._event = event;
   }
 
-  get amount(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
+  get leagueId(): i32 {
+    return this._event.parameters[0].value.toI32();
+  }
+
+  get name(): string {
+    return this._event.parameters[1].value.toString();
+  }
+
+  get sport(): string {
+    return this._event.parameters[2].value.toString();
+  }
+}
+
+export class LeagueUpdated extends ethereum.Event {
+  get params(): LeagueUpdated__Params {
+    return new LeagueUpdated__Params(this);
+  }
+}
+
+export class LeagueUpdated__Params {
+  _event: LeagueUpdated;
+
+  constructor(event: LeagueUpdated) {
+    this._event = event;
+  }
+
+  get leagueId(): i32 {
+    return this._event.parameters[0].value.toI32();
+  }
+
+  get name(): string {
+    return this._event.parameters[1].value.toString();
+  }
+
+  get sport(): string {
+    return this._event.parameters[2].value.toString();
   }
 }
 
@@ -71,32 +119,42 @@ export class MatchAdded__Params {
     this._event = event;
   }
 
-  get _season(): i32 {
+  get leagueId(): i32 {
     return this._event.parameters[0].value.toI32();
   }
 
-  get matchId(): BigInt {
+  get espnMatchId(): BigInt {
     return this._event.parameters[1].value.toBigInt();
   }
 
-  get _teamAId(): i32 {
-    return this._event.parameters[2].value.toI32();
+  get matchId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class MatchUpdated extends ethereum.Event {
+  get params(): MatchUpdated__Params {
+    return new MatchUpdated__Params(this);
+  }
+}
+
+export class MatchUpdated__Params {
+  _event: MatchUpdated;
+
+  constructor(event: MatchUpdated) {
+    this._event = event;
   }
 
-  get _teamBId(): i32 {
-    return this._event.parameters[3].value.toI32();
+  get leagueId(): i32 {
+    return this._event.parameters[0].value.toI32();
   }
 
-  get _startingTime(): BigInt {
-    return this._event.parameters[4].value.toBigInt();
+  get espnMatchId(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
   }
 
-  get _poolsStartTime(): BigInt {
-    return this._event.parameters[5].value.toBigInt();
-  }
-
-  get _poolsEndTime(): BigInt {
-    return this._event.parameters[6].value.toBigInt();
+  get matchId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
   }
 }
 
@@ -122,133 +180,277 @@ export class OwnershipTransferred__Params {
   }
 }
 
-export class TeamAdded extends ethereum.Event {
-  get params(): TeamAdded__Params {
-    return new TeamAdded__Params(this);
+export class Paused extends ethereum.Event {
+  get params(): Paused__Params {
+    return new Paused__Params(this);
   }
 }
 
-export class TeamAdded__Params {
-  _event: TeamAdded;
+export class Paused__Params {
+  _event: Paused;
 
-  constructor(event: TeamAdded) {
+  constructor(event: Paused) {
     this._event = event;
   }
 
-  get teamId(): i32 {
-    return this._event.parameters[0].value.toI32();
-  }
-
-  get team(): string {
-    return this._event.parameters[1].value.toString();
+  get account(): Address {
+    return this._event.parameters[0].value.toAddress();
   }
 }
 
-export class TeamUpdated extends ethereum.Event {
-  get params(): TeamUpdated__Params {
-    return new TeamUpdated__Params(this);
+export class PoolAdded extends ethereum.Event {
+  get params(): PoolAdded__Params {
+    return new PoolAdded__Params(this);
   }
 }
 
-export class TeamUpdated__Params {
-  _event: TeamUpdated;
+export class PoolAdded__Params {
+  _event: PoolAdded;
 
-  constructor(event: TeamUpdated) {
+  constructor(event: PoolAdded) {
     this._event = event;
   }
 
-  get teamId(): i32 {
-    return this._event.parameters[0].value.toI32();
+  get poolId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
   }
 
-  get team(): string {
-    return this._event.parameters[1].value.toString();
+  get matchIds(): Array<BigInt> {
+    return this._event.parameters[1].value.toBigIntArray();
+  }
+
+  get startTime(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+
+  get endTime(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+
+  get fee(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
   }
 }
 
-export class Prediction__betsResult {
-  value0: Address;
-  value1: i32;
-  value2: BigInt;
-  value3: i32;
-  value4: BigInt;
+export class PoolPredicted extends ethereum.Event {
+  get params(): PoolPredicted__Params {
+    return new PoolPredicted__Params(this);
+  }
+}
 
-  constructor(
-    value0: Address,
-    value1: i32,
-    value2: BigInt,
-    value3: i32,
-    value4: BigInt
-  ) {
+export class PoolPredicted__Params {
+  _event: PoolPredicted;
+
+  constructor(event: PoolPredicted) {
+    this._event = event;
+  }
+
+  get predictionId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get matchIds(): Array<BigInt> {
+    return this._event.parameters[1].value.toBigIntArray();
+  }
+
+  get choices(): Array<i32> {
+    return this._event.parameters[2].value.toI32Array();
+  }
+
+  get poolId(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+
+  get predictor(): Address {
+    return this._event.parameters[4].value.toAddress();
+  }
+}
+
+export class PoolUpdated extends ethereum.Event {
+  get params(): PoolUpdated__Params {
+    return new PoolUpdated__Params(this);
+  }
+}
+
+export class PoolUpdated__Params {
+  _event: PoolUpdated;
+
+  constructor(event: PoolUpdated) {
+    this._event = event;
+  }
+
+  get poolId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get matchIds(): Array<BigInt> {
+    return this._event.parameters[1].value.toBigIntArray();
+  }
+
+  get startTime(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+
+  get endTime(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+
+  get fee(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
+}
+
+export class PredictionUpdated extends ethereum.Event {
+  get params(): PredictionUpdated__Params {
+    return new PredictionUpdated__Params(this);
+  }
+}
+
+export class PredictionUpdated__Params {
+  _event: PredictionUpdated;
+
+  constructor(event: PredictionUpdated) {
+    this._event = event;
+  }
+
+  get predictionId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get matchIds(): Array<BigInt> {
+    return this._event.parameters[1].value.toBigIntArray();
+  }
+
+  get choices(): Array<i32> {
+    return this._event.parameters[2].value.toI32Array();
+  }
+
+  get poolId(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+
+  get predictor(): Address {
+    return this._event.parameters[4].value.toAddress();
+  }
+}
+
+export class RewardedPools extends ethereum.Event {
+  get params(): RewardedPools__Params {
+    return new RewardedPools__Params(this);
+  }
+}
+
+export class RewardedPools__Params {
+  _event: RewardedPools;
+
+  constructor(event: RewardedPools) {
+    this._event = event;
+  }
+
+  get poolId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get winners(): Array<Address> {
+    return this._event.parameters[1].value.toAddressArray();
+  }
+
+  get amount(): Array<BigInt> {
+    return this._event.parameters[2].value.toBigIntArray();
+  }
+}
+
+export class Unpaused extends ethereum.Event {
+  get params(): Unpaused__Params {
+    return new Unpaused__Params(this);
+  }
+}
+
+export class Unpaused__Params {
+  _event: Unpaused;
+
+  constructor(event: Unpaused) {
+    this._event = event;
+  }
+
+  get account(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
+export class Prediction__leaguesResult {
+  value0: string;
+  value1: string;
+
+  constructor(value0: string, value1: string) {
     this.value0 = value0;
     this.value1 = value1;
-    this.value2 = value2;
-    this.value3 = value3;
-    this.value4 = value4;
   }
 
   toMap(): TypedMap<string, ethereum.Value> {
     let map = new TypedMap<string, ethereum.Value>();
-    map.set("value0", ethereum.Value.fromAddress(this.value0));
-    map.set(
-      "value1",
-      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value1))
-    );
-    map.set("value2", ethereum.Value.fromUnsignedBigInt(this.value2));
-    map.set(
-      "value3",
-      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value3))
-    );
-    map.set("value4", ethereum.Value.fromUnsignedBigInt(this.value4));
+    map.set("value0", ethereum.Value.fromString(this.value0));
+    map.set("value1", ethereum.Value.fromString(this.value1));
     return map;
   }
 }
 
 export class Prediction__matchesResult {
-  value0: boolean;
-  value1: i32;
-  value2: i32;
-  value3: i32;
-  value4: BigInt;
-  value5: BigInt;
-  value6: BigInt;
+  value0: i32;
+  value1: BigInt;
 
-  constructor(
-    value0: boolean,
-    value1: i32,
-    value2: i32,
-    value3: i32,
-    value4: BigInt,
-    value5: BigInt,
-    value6: BigInt
-  ) {
+  constructor(value0: i32, value1: BigInt) {
     this.value0 = value0;
     this.value1 = value1;
-    this.value2 = value2;
-    this.value3 = value3;
-    this.value4 = value4;
-    this.value5 = value5;
-    this.value6 = value6;
   }
 
   toMap(): TypedMap<string, ethereum.Value> {
     let map = new TypedMap<string, ethereum.Value>();
-    map.set("value0", ethereum.Value.fromBoolean(this.value0));
     map.set(
-      "value1",
-      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value1))
+      "value0",
+      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value0))
     );
+    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    return map;
+  }
+}
+
+export class Prediction__poolsResult {
+  value0: BigInt;
+  value1: BigInt;
+  value2: BigInt;
+
+  constructor(value0: BigInt, value1: BigInt, value2: BigInt) {
+    this.value0 = value0;
+    this.value1 = value1;
+    this.value2 = value2;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
+    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    map.set("value2", ethereum.Value.fromUnsignedBigInt(this.value2));
+    return map;
+  }
+}
+
+export class Prediction__predictionsResult {
+  value0: i32;
+  value1: Address;
+
+  constructor(value0: i32, value1: Address) {
+    this.value0 = value0;
+    this.value1 = value1;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
     map.set(
-      "value2",
-      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value2))
+      "value0",
+      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value0))
     );
-    map.set(
-      "value3",
-      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value3))
-    );
-    map.set("value4", ethereum.Value.fromUnsignedBigInt(this.value4));
-    map.set("value5", ethereum.Value.fromUnsignedBigInt(this.value5));
-    map.set("value6", ethereum.Value.fromUnsignedBigInt(this.value6));
+    map.set("value1", ethereum.Value.fromAddress(this.value1));
     return map;
   }
 }
@@ -256,58 +458,6 @@ export class Prediction__matchesResult {
 export class Prediction extends ethereum.SmartContract {
   static bind(address: Address): Prediction {
     return new Prediction("Prediction", address);
-  }
-
-  _betIds(): BigInt {
-    let result = super.call("_betIds", "_betIds():(uint256)", []);
-
-    return result[0].toBigInt();
-  }
-
-  try__betIds(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall("_betIds", "_betIds():(uint256)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  bets(param0: BigInt): Prediction__betsResult {
-    let result = super.call(
-      "bets",
-      "bets(uint256):(address,uint8,uint256,uint8,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
-    );
-
-    return new Prediction__betsResult(
-      result[0].toAddress(),
-      result[1].toI32(),
-      result[2].toBigInt(),
-      result[3].toI32(),
-      result[4].toBigInt()
-    );
-  }
-
-  try_bets(param0: BigInt): ethereum.CallResult<Prediction__betsResult> {
-    let result = super.tryCall(
-      "bets",
-      "bets(uint256):(address,uint8,uint256,uint8,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(
-      new Prediction__betsResult(
-        value[0].toAddress(),
-        value[1].toI32(),
-        value[2].toBigInt(),
-        value[3].toI32(),
-        value[4].toBigInt()
-      )
-    );
   }
 
   bund(): Address {
@@ -323,6 +473,77 @@ export class Prediction extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getChoicesOfPrediction(_predictionId: BigInt): Array<i32> {
+    let result = super.call(
+      "getChoicesOfPrediction",
+      "getChoicesOfPrediction(uint256):(uint16[])",
+      [ethereum.Value.fromUnsignedBigInt(_predictionId)]
+    );
+
+    return result[0].toI32Array();
+  }
+
+  try_getChoicesOfPrediction(
+    _predictionId: BigInt
+  ): ethereum.CallResult<Array<i32>> {
+    let result = super.tryCall(
+      "getChoicesOfPrediction",
+      "getChoicesOfPrediction(uint256):(uint16[])",
+      [ethereum.Value.fromUnsignedBigInt(_predictionId)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toI32Array());
+  }
+
+  getMatchIdsOfPool(_poolId: BigInt): Array<BigInt> {
+    let result = super.call(
+      "getMatchIdsOfPool",
+      "getMatchIdsOfPool(uint256):(uint256[])",
+      [ethereum.Value.fromUnsignedBigInt(_poolId)]
+    );
+
+    return result[0].toBigIntArray();
+  }
+
+  try_getMatchIdsOfPool(_poolId: BigInt): ethereum.CallResult<Array<BigInt>> {
+    let result = super.tryCall(
+      "getMatchIdsOfPool",
+      "getMatchIdsOfPool(uint256):(uint256[])",
+      [ethereum.Value.fromUnsignedBigInt(_poolId)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigIntArray());
+  }
+
+  getResultsOfPool(_poolId: BigInt): Array<i32> {
+    let result = super.call(
+      "getResultsOfPool",
+      "getResultsOfPool(uint256):(uint16[])",
+      [ethereum.Value.fromUnsignedBigInt(_poolId)]
+    );
+
+    return result[0].toI32Array();
+  }
+
+  try_getResultsOfPool(_poolId: BigInt): ethereum.CallResult<Array<i32>> {
+    let result = super.tryCall(
+      "getResultsOfPool",
+      "getResultsOfPool(uint256):(uint16[])",
+      [ethereum.Value.fromUnsignedBigInt(_poolId)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toI32Array());
   }
 
   isAdmin(admin: Address): boolean {
@@ -344,44 +565,112 @@ export class Prediction extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  matches(param0: BigInt): Prediction__matchesResult {
+  isPredictedByPool(param0: Address, param1: BigInt): boolean {
     let result = super.call(
-      "matches",
-      "matches(uint256):(bool,uint8,uint8,uint8,uint256,uint256,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      "isPredictedByPool",
+      "isPredictedByPool(address,uint256):(bool)",
+      [
+        ethereum.Value.fromAddress(param0),
+        ethereum.Value.fromUnsignedBigInt(param1)
+      ]
     );
 
-    return new Prediction__matchesResult(
-      result[0].toBoolean(),
-      result[1].toI32(),
-      result[2].toI32(),
-      result[3].toI32(),
-      result[4].toBigInt(),
-      result[5].toBigInt(),
-      result[6].toBigInt()
-    );
+    return result[0].toBoolean();
   }
 
-  try_matches(param0: BigInt): ethereum.CallResult<Prediction__matchesResult> {
+  try_isPredictedByPool(
+    param0: Address,
+    param1: BigInt
+  ): ethereum.CallResult<boolean> {
     let result = super.tryCall(
-      "matches",
-      "matches(uint256):(bool,uint8,uint8,uint8,uint256,uint256,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      "isPredictedByPool",
+      "isPredictedByPool(address,uint256):(bool)",
+      [
+        ethereum.Value.fromAddress(param0),
+        ethereum.Value.fromUnsignedBigInt(param1)
+      ]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  leagues(param0: BigInt): Prediction__leaguesResult {
+    let result = super.call("leagues", "leagues(uint256):(string,string)", [
+      ethereum.Value.fromUnsignedBigInt(param0)
+    ]);
+
+    return new Prediction__leaguesResult(
+      result[0].toString(),
+      result[1].toString()
+    );
+  }
+
+  try_leagues(param0: BigInt): ethereum.CallResult<Prediction__leaguesResult> {
+    let result = super.tryCall("leagues", "leagues(uint256):(string,string)", [
+      ethereum.Value.fromUnsignedBigInt(param0)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
     return ethereum.CallResult.fromValue(
-      new Prediction__matchesResult(
-        value[0].toBoolean(),
-        value[1].toI32(),
-        value[2].toI32(),
-        value[3].toI32(),
-        value[4].toBigInt(),
-        value[5].toBigInt(),
-        value[6].toBigInt()
-      )
+      new Prediction__leaguesResult(value[0].toString(), value[1].toString())
+    );
+  }
+
+  matchIndex(param0: i32, param1: BigInt): BigInt {
+    let result = super.call(
+      "matchIndex",
+      "matchIndex(uint8,uint256):(uint256)",
+      [
+        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(param0)),
+        ethereum.Value.fromUnsignedBigInt(param1)
+      ]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_matchIndex(param0: i32, param1: BigInt): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "matchIndex",
+      "matchIndex(uint8,uint256):(uint256)",
+      [
+        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(param0)),
+        ethereum.Value.fromUnsignedBigInt(param1)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  matches(param0: BigInt): Prediction__matchesResult {
+    let result = super.call("matches", "matches(uint256):(uint8,uint256)", [
+      ethereum.Value.fromUnsignedBigInt(param0)
+    ]);
+
+    return new Prediction__matchesResult(
+      result[0].toI32(),
+      result[1].toBigInt()
+    );
+  }
+
+  try_matches(param0: BigInt): ethereum.CallResult<Prediction__matchesResult> {
+    let result = super.tryCall("matches", "matches(uint256):(uint8,uint256)", [
+      ethereum.Value.fromUnsignedBigInt(param0)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new Prediction__matchesResult(value[0].toI32(), value[1].toBigInt())
     );
   }
 
@@ -400,23 +689,120 @@ export class Prediction extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  teams(param0: i32): string {
-    let result = super.call("teams", "teams(uint8):(string)", [
-      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(param0))
-    ]);
+  paused(): boolean {
+    let result = super.call("paused", "paused():(bool)", []);
 
-    return result[0].toString();
+    return result[0].toBoolean();
   }
 
-  try_teams(param0: i32): ethereum.CallResult<string> {
-    let result = super.tryCall("teams", "teams(uint8):(string)", [
-      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(param0))
-    ]);
+  try_paused(): ethereum.CallResult<boolean> {
+    let result = super.tryCall("paused", "paused():(bool)", []);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toString());
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  pools(param0: BigInt): Prediction__poolsResult {
+    let result = super.call(
+      "pools",
+      "pools(uint256):(uint256,uint256,uint256)",
+      [ethereum.Value.fromUnsignedBigInt(param0)]
+    );
+
+    return new Prediction__poolsResult(
+      result[0].toBigInt(),
+      result[1].toBigInt(),
+      result[2].toBigInt()
+    );
+  }
+
+  try_pools(param0: BigInt): ethereum.CallResult<Prediction__poolsResult> {
+    let result = super.tryCall(
+      "pools",
+      "pools(uint256):(uint256,uint256,uint256)",
+      [ethereum.Value.fromUnsignedBigInt(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new Prediction__poolsResult(
+        value[0].toBigInt(),
+        value[1].toBigInt(),
+        value[2].toBigInt()
+      )
+    );
+  }
+
+  predictions(param0: BigInt): Prediction__predictionsResult {
+    let result = super.call(
+      "predictions",
+      "predictions(uint256):(uint8,address)",
+      [ethereum.Value.fromUnsignedBigInt(param0)]
+    );
+
+    return new Prediction__predictionsResult(
+      result[0].toI32(),
+      result[1].toAddress()
+    );
+  }
+
+  try_predictions(
+    param0: BigInt
+  ): ethereum.CallResult<Prediction__predictionsResult> {
+    let result = super.tryCall(
+      "predictions",
+      "predictions(uint256):(uint8,address)",
+      [ethereum.Value.fromUnsignedBigInt(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new Prediction__predictionsResult(value[0].toI32(), value[1].toAddress())
+    );
+  }
+
+  treasury(): Address {
+    let result = super.call("treasury", "treasury():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_treasury(): ethereum.CallResult<Address> {
+    let result = super.tryCall("treasury", "treasury():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  treasuryPercentage(): BigInt {
+    let result = super.call(
+      "treasuryPercentage",
+      "treasuryPercentage():(uint256)",
+      []
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_treasuryPercentage(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "treasuryPercentage",
+      "treasuryPercentage():(uint256)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 }
 
@@ -450,6 +836,90 @@ export class ConstructorCall__Outputs {
   }
 }
 
+export class AddLeagueCall extends ethereum.Call {
+  get inputs(): AddLeagueCall__Inputs {
+    return new AddLeagueCall__Inputs(this);
+  }
+
+  get outputs(): AddLeagueCall__Outputs {
+    return new AddLeagueCall__Outputs(this);
+  }
+}
+
+export class AddLeagueCall__Inputs {
+  _call: AddLeagueCall;
+
+  constructor(call: AddLeagueCall) {
+    this._call = call;
+  }
+
+  get _league(): AddLeagueCall_leagueStruct {
+    return changetype<AddLeagueCall_leagueStruct>(
+      this._call.inputValues[0].value.toTuple()
+    );
+  }
+}
+
+export class AddLeagueCall__Outputs {
+  _call: AddLeagueCall;
+
+  constructor(call: AddLeagueCall) {
+    this._call = call;
+  }
+}
+
+export class AddLeagueCall_leagueStruct extends ethereum.Tuple {
+  get name(): string {
+    return this[0].toString();
+  }
+
+  get sport(): string {
+    return this[1].toString();
+  }
+}
+
+export class AddLeaguesCall extends ethereum.Call {
+  get inputs(): AddLeaguesCall__Inputs {
+    return new AddLeaguesCall__Inputs(this);
+  }
+
+  get outputs(): AddLeaguesCall__Outputs {
+    return new AddLeaguesCall__Outputs(this);
+  }
+}
+
+export class AddLeaguesCall__Inputs {
+  _call: AddLeaguesCall;
+
+  constructor(call: AddLeaguesCall) {
+    this._call = call;
+  }
+
+  get _leagues(): Array<AddLeaguesCall_leaguesStruct> {
+    return this._call.inputValues[0].value.toTupleArray<
+      AddLeaguesCall_leaguesStruct
+    >();
+  }
+}
+
+export class AddLeaguesCall__Outputs {
+  _call: AddLeaguesCall;
+
+  constructor(call: AddLeaguesCall) {
+    this._call = call;
+  }
+}
+
+export class AddLeaguesCall_leaguesStruct extends ethereum.Tuple {
+  get name(): string {
+    return this[0].toString();
+  }
+
+  get sport(): string {
+    return this[1].toString();
+  }
+}
+
 export class AddMatchCall extends ethereum.Call {
   get inputs(): AddMatchCall__Inputs {
     return new AddMatchCall__Inputs(this);
@@ -467,13 +937,9 @@ export class AddMatchCall__Inputs {
     this._call = call;
   }
 
-  get matchId(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get matchData(): AddMatchCallMatchDataStruct {
-    return changetype<AddMatchCallMatchDataStruct>(
-      this._call.inputValues[1].value.toTuple()
+  get _matchData(): AddMatchCall_matchDataStruct {
+    return changetype<AddMatchCall_matchDataStruct>(
+      this._call.inputValues[0].value.toTuple()
     );
   }
 }
@@ -486,33 +952,13 @@ export class AddMatchCall__Outputs {
   }
 }
 
-export class AddMatchCallMatchDataStruct extends ethereum.Tuple {
-  get isBettingOn(): boolean {
-    return this[0].toBoolean();
+export class AddMatchCall_matchDataStruct extends ethereum.Tuple {
+  get leagueId(): i32 {
+    return this[0].toI32();
   }
 
-  get season(): i32 {
-    return this[1].toI32();
-  }
-
-  get teamAId(): i32 {
-    return this[2].toI32();
-  }
-
-  get teamBId(): i32 {
-    return this[3].toI32();
-  }
-
-  get startingTime(): BigInt {
-    return this[4].toBigInt();
-  }
-
-  get poolsStartTime(): BigInt {
-    return this[5].toBigInt();
-  }
-
-  get poolsEndTime(): BigInt {
-    return this[6].toBigInt();
+  get espnMatchId(): BigInt {
+    return this[1].toBigInt();
   }
 }
 
@@ -533,13 +979,9 @@ export class AddMatchesCall__Inputs {
     this._call = call;
   }
 
-  get matchIds(): Array<BigInt> {
-    return this._call.inputValues[0].value.toBigIntArray();
-  }
-
-  get matchData(): Array<AddMatchesCallMatchDataStruct> {
-    return this._call.inputValues[1].value.toTupleArray<
-      AddMatchesCallMatchDataStruct
+  get _matchData(): Array<AddMatchesCall_matchDataStruct> {
+    return this._call.inputValues[0].value.toTupleArray<
+      AddMatchesCall_matchDataStruct
     >();
   }
 }
@@ -552,112 +994,176 @@ export class AddMatchesCall__Outputs {
   }
 }
 
-export class AddMatchesCallMatchDataStruct extends ethereum.Tuple {
-  get isBettingOn(): boolean {
-    return this[0].toBoolean();
+export class AddMatchesCall_matchDataStruct extends ethereum.Tuple {
+  get leagueId(): i32 {
+    return this[0].toI32();
   }
 
-  get season(): i32 {
-    return this[1].toI32();
-  }
-
-  get teamAId(): i32 {
-    return this[2].toI32();
-  }
-
-  get teamBId(): i32 {
-    return this[3].toI32();
-  }
-
-  get startingTime(): BigInt {
-    return this[4].toBigInt();
-  }
-
-  get poolsStartTime(): BigInt {
-    return this[5].toBigInt();
-  }
-
-  get poolsEndTime(): BigInt {
-    return this[6].toBigInt();
+  get espnMatchId(): BigInt {
+    return this[1].toBigInt();
   }
 }
 
-export class AddTeamsCall extends ethereum.Call {
-  get inputs(): AddTeamsCall__Inputs {
-    return new AddTeamsCall__Inputs(this);
+export class AddPoolCall extends ethereum.Call {
+  get inputs(): AddPoolCall__Inputs {
+    return new AddPoolCall__Inputs(this);
   }
 
-  get outputs(): AddTeamsCall__Outputs {
-    return new AddTeamsCall__Outputs(this);
+  get outputs(): AddPoolCall__Outputs {
+    return new AddPoolCall__Outputs(this);
   }
 }
 
-export class AddTeamsCall__Inputs {
-  _call: AddTeamsCall;
+export class AddPoolCall__Inputs {
+  _call: AddPoolCall;
 
-  constructor(call: AddTeamsCall) {
+  constructor(call: AddPoolCall) {
     this._call = call;
   }
 
-  get teamId(): i32 {
-    return this._call.inputValues[0].value.toI32();
-  }
-
-  get team(): AddTeamsCallTeamStruct {
-    return changetype<AddTeamsCallTeamStruct>(
-      this._call.inputValues[1].value.toTuple()
+  get _pool(): AddPoolCall_poolStruct {
+    return changetype<AddPoolCall_poolStruct>(
+      this._call.inputValues[0].value.toTuple()
     );
   }
 }
 
-export class AddTeamsCall__Outputs {
-  _call: AddTeamsCall;
+export class AddPoolCall__Outputs {
+  _call: AddPoolCall;
 
-  constructor(call: AddTeamsCall) {
+  constructor(call: AddPoolCall) {
     this._call = call;
   }
 }
 
-export class AddTeamsCallTeamStruct extends ethereum.Tuple {
-  get name(): string {
-    return this[0].toString();
+export class AddPoolCall_poolStruct extends ethereum.Tuple {
+  get matchIds(): Array<BigInt> {
+    return this[0].toBigIntArray();
+  }
+
+  get results(): Array<i32> {
+    return this[1].toI32Array();
+  }
+
+  get startTime(): BigInt {
+    return this[2].toBigInt();
+  }
+
+  get endTime(): BigInt {
+    return this[3].toBigInt();
+  }
+
+  get fee(): BigInt {
+    return this[4].toBigInt();
   }
 }
 
-export class PlaceBetCall extends ethereum.Call {
-  get inputs(): PlaceBetCall__Inputs {
-    return new PlaceBetCall__Inputs(this);
+export class AddPoolPredictionCall extends ethereum.Call {
+  get inputs(): AddPoolPredictionCall__Inputs {
+    return new AddPoolPredictionCall__Inputs(this);
   }
 
-  get outputs(): PlaceBetCall__Outputs {
-    return new PlaceBetCall__Outputs(this);
+  get outputs(): AddPoolPredictionCall__Outputs {
+    return new AddPoolPredictionCall__Outputs(this);
   }
 }
 
-export class PlaceBetCall__Inputs {
-  _call: PlaceBetCall;
+export class AddPoolPredictionCall__Inputs {
+  _call: AddPoolPredictionCall;
 
-  constructor(call: PlaceBetCall) {
+  constructor(call: AddPoolPredictionCall) {
     this._call = call;
   }
 
-  get matchId(): BigInt {
+  get prediction(): AddPoolPredictionCallPredictionStruct {
+    return changetype<AddPoolPredictionCallPredictionStruct>(
+      this._call.inputValues[0].value.toTuple()
+    );
+  }
+}
+
+export class AddPoolPredictionCall__Outputs {
+  _call: AddPoolPredictionCall;
+
+  constructor(call: AddPoolPredictionCall) {
+    this._call = call;
+  }
+}
+
+export class AddPoolPredictionCallPredictionStruct extends ethereum.Tuple {
+  get matchIds(): Array<BigInt> {
+    return this[0].toBigIntArray();
+  }
+
+  get choices(): Array<i32> {
+    return this[1].toI32Array();
+  }
+
+  get poolId(): i32 {
+    return this[2].toI32();
+  }
+
+  get predictor(): Address {
+    return this[3].toAddress();
+  }
+}
+
+export class GradePoolsCall extends ethereum.Call {
+  get inputs(): GradePoolsCall__Inputs {
+    return new GradePoolsCall__Inputs(this);
+  }
+
+  get outputs(): GradePoolsCall__Outputs {
+    return new GradePoolsCall__Outputs(this);
+  }
+}
+
+export class GradePoolsCall__Inputs {
+  _call: GradePoolsCall;
+
+  constructor(call: GradePoolsCall) {
+    this._call = call;
+  }
+
+  get _poolId(): BigInt {
     return this._call.inputValues[0].value.toBigInt();
   }
 
-  get team(): i32 {
-    return this._call.inputValues[1].value.toI32();
-  }
-
-  get pool(): i32 {
-    return this._call.inputValues[2].value.toI32();
+  get _results(): Array<i32> {
+    return this._call.inputValues[1].value.toI32Array();
   }
 }
 
-export class PlaceBetCall__Outputs {
-  _call: PlaceBetCall;
+export class GradePoolsCall__Outputs {
+  _call: GradePoolsCall;
 
-  constructor(call: PlaceBetCall) {
+  constructor(call: GradePoolsCall) {
+    this._call = call;
+  }
+}
+
+export class PauseCall extends ethereum.Call {
+  get inputs(): PauseCall__Inputs {
+    return new PauseCall__Inputs(this);
+  }
+
+  get outputs(): PauseCall__Outputs {
+    return new PauseCall__Outputs(this);
+  }
+}
+
+export class PauseCall__Inputs {
+  _call: PauseCall;
+
+  constructor(call: PauseCall) {
+    this._call = call;
+  }
+}
+
+export class PauseCall__Outputs {
+  _call: PauseCall;
+
+  constructor(call: PauseCall) {
     this._call = call;
   }
 }
@@ -684,6 +1190,44 @@ export class RenounceOwnershipCall__Outputs {
   _call: RenounceOwnershipCall;
 
   constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class RewardPoolsCall extends ethereum.Call {
+  get inputs(): RewardPoolsCall__Inputs {
+    return new RewardPoolsCall__Inputs(this);
+  }
+
+  get outputs(): RewardPoolsCall__Outputs {
+    return new RewardPoolsCall__Outputs(this);
+  }
+}
+
+export class RewardPoolsCall__Inputs {
+  _call: RewardPoolsCall;
+
+  constructor(call: RewardPoolsCall) {
+    this._call = call;
+  }
+
+  get _poolId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get _winners(): Array<Address> {
+    return this._call.inputValues[1].value.toAddressArray();
+  }
+
+  get _amounts(): Array<BigInt> {
+    return this._call.inputValues[2].value.toBigIntArray();
+  }
+}
+
+export class RewardPoolsCall__Outputs {
+  _call: RewardPoolsCall;
+
+  constructor(call: RewardPoolsCall) {
     this._call = call;
   }
 }
@@ -752,44 +1296,348 @@ export class TransferOwnershipCall__Outputs {
   }
 }
 
-export class UpdateTeamsCall extends ethereum.Call {
-  get inputs(): UpdateTeamsCall__Inputs {
-    return new UpdateTeamsCall__Inputs(this);
+export class UnpauseCall extends ethereum.Call {
+  get inputs(): UnpauseCall__Inputs {
+    return new UnpauseCall__Inputs(this);
   }
 
-  get outputs(): UpdateTeamsCall__Outputs {
-    return new UpdateTeamsCall__Outputs(this);
+  get outputs(): UnpauseCall__Outputs {
+    return new UnpauseCall__Outputs(this);
   }
 }
 
-export class UpdateTeamsCall__Inputs {
-  _call: UpdateTeamsCall;
+export class UnpauseCall__Inputs {
+  _call: UnpauseCall;
 
-  constructor(call: UpdateTeamsCall) {
+  constructor(call: UnpauseCall) {
+    this._call = call;
+  }
+}
+
+export class UnpauseCall__Outputs {
+  _call: UnpauseCall;
+
+  constructor(call: UnpauseCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateLeagueCall extends ethereum.Call {
+  get inputs(): UpdateLeagueCall__Inputs {
+    return new UpdateLeagueCall__Inputs(this);
+  }
+
+  get outputs(): UpdateLeagueCall__Outputs {
+    return new UpdateLeagueCall__Outputs(this);
+  }
+}
+
+export class UpdateLeagueCall__Inputs {
+  _call: UpdateLeagueCall;
+
+  constructor(call: UpdateLeagueCall) {
     this._call = call;
   }
 
-  get teamId(): i32 {
+  get _id(): i32 {
     return this._call.inputValues[0].value.toI32();
   }
 
-  get team(): UpdateTeamsCallTeamStruct {
-    return changetype<UpdateTeamsCallTeamStruct>(
+  get _league(): UpdateLeagueCall_leagueStruct {
+    return changetype<UpdateLeagueCall_leagueStruct>(
       this._call.inputValues[1].value.toTuple()
     );
   }
 }
 
-export class UpdateTeamsCall__Outputs {
-  _call: UpdateTeamsCall;
+export class UpdateLeagueCall__Outputs {
+  _call: UpdateLeagueCall;
 
-  constructor(call: UpdateTeamsCall) {
+  constructor(call: UpdateLeagueCall) {
     this._call = call;
   }
 }
 
-export class UpdateTeamsCallTeamStruct extends ethereum.Tuple {
+export class UpdateLeagueCall_leagueStruct extends ethereum.Tuple {
   get name(): string {
     return this[0].toString();
+  }
+
+  get sport(): string {
+    return this[1].toString();
+  }
+}
+
+export class UpdateMatchCall extends ethereum.Call {
+  get inputs(): UpdateMatchCall__Inputs {
+    return new UpdateMatchCall__Inputs(this);
+  }
+
+  get outputs(): UpdateMatchCall__Outputs {
+    return new UpdateMatchCall__Outputs(this);
+  }
+}
+
+export class UpdateMatchCall__Inputs {
+  _call: UpdateMatchCall;
+
+  constructor(call: UpdateMatchCall) {
+    this._call = call;
+  }
+
+  get matchId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get matchData(): UpdateMatchCallMatchDataStruct {
+    return changetype<UpdateMatchCallMatchDataStruct>(
+      this._call.inputValues[1].value.toTuple()
+    );
+  }
+}
+
+export class UpdateMatchCall__Outputs {
+  _call: UpdateMatchCall;
+
+  constructor(call: UpdateMatchCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateMatchCallMatchDataStruct extends ethereum.Tuple {
+  get leagueId(): i32 {
+    return this[0].toI32();
+  }
+
+  get espnMatchId(): BigInt {
+    return this[1].toBigInt();
+  }
+}
+
+export class UpdatePoolCall extends ethereum.Call {
+  get inputs(): UpdatePoolCall__Inputs {
+    return new UpdatePoolCall__Inputs(this);
+  }
+
+  get outputs(): UpdatePoolCall__Outputs {
+    return new UpdatePoolCall__Outputs(this);
+  }
+}
+
+export class UpdatePoolCall__Inputs {
+  _call: UpdatePoolCall;
+
+  constructor(call: UpdatePoolCall) {
+    this._call = call;
+  }
+
+  get _poolId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get _pool(): UpdatePoolCall_poolStruct {
+    return changetype<UpdatePoolCall_poolStruct>(
+      this._call.inputValues[1].value.toTuple()
+    );
+  }
+}
+
+export class UpdatePoolCall__Outputs {
+  _call: UpdatePoolCall;
+
+  constructor(call: UpdatePoolCall) {
+    this._call = call;
+  }
+}
+
+export class UpdatePoolCall_poolStruct extends ethereum.Tuple {
+  get matchIds(): Array<BigInt> {
+    return this[0].toBigIntArray();
+  }
+
+  get results(): Array<i32> {
+    return this[1].toI32Array();
+  }
+
+  get startTime(): BigInt {
+    return this[2].toBigInt();
+  }
+
+  get endTime(): BigInt {
+    return this[3].toBigInt();
+  }
+
+  get fee(): BigInt {
+    return this[4].toBigInt();
+  }
+}
+
+export class UpdatePoolPredictionCall extends ethereum.Call {
+  get inputs(): UpdatePoolPredictionCall__Inputs {
+    return new UpdatePoolPredictionCall__Inputs(this);
+  }
+
+  get outputs(): UpdatePoolPredictionCall__Outputs {
+    return new UpdatePoolPredictionCall__Outputs(this);
+  }
+}
+
+export class UpdatePoolPredictionCall__Inputs {
+  _call: UpdatePoolPredictionCall;
+
+  constructor(call: UpdatePoolPredictionCall) {
+    this._call = call;
+  }
+
+  get _predictionId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get prediction(): UpdatePoolPredictionCallPredictionStruct {
+    return changetype<UpdatePoolPredictionCallPredictionStruct>(
+      this._call.inputValues[1].value.toTuple()
+    );
+  }
+}
+
+export class UpdatePoolPredictionCall__Outputs {
+  _call: UpdatePoolPredictionCall;
+
+  constructor(call: UpdatePoolPredictionCall) {
+    this._call = call;
+  }
+}
+
+export class UpdatePoolPredictionCallPredictionStruct extends ethereum.Tuple {
+  get matchIds(): Array<BigInt> {
+    return this[0].toBigIntArray();
+  }
+
+  get choices(): Array<i32> {
+    return this[1].toI32Array();
+  }
+
+  get poolId(): i32 {
+    return this[2].toI32();
+  }
+
+  get predictor(): Address {
+    return this[3].toAddress();
+  }
+}
+
+export class UpdateTreasuryCall extends ethereum.Call {
+  get inputs(): UpdateTreasuryCall__Inputs {
+    return new UpdateTreasuryCall__Inputs(this);
+  }
+
+  get outputs(): UpdateTreasuryCall__Outputs {
+    return new UpdateTreasuryCall__Outputs(this);
+  }
+}
+
+export class UpdateTreasuryCall__Inputs {
+  _call: UpdateTreasuryCall;
+
+  constructor(call: UpdateTreasuryCall) {
+    this._call = call;
+  }
+
+  get _treasury(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class UpdateTreasuryCall__Outputs {
+  _call: UpdateTreasuryCall;
+
+  constructor(call: UpdateTreasuryCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateTreasuryPercentageCall extends ethereum.Call {
+  get inputs(): UpdateTreasuryPercentageCall__Inputs {
+    return new UpdateTreasuryPercentageCall__Inputs(this);
+  }
+
+  get outputs(): UpdateTreasuryPercentageCall__Outputs {
+    return new UpdateTreasuryPercentageCall__Outputs(this);
+  }
+}
+
+export class UpdateTreasuryPercentageCall__Inputs {
+  _call: UpdateTreasuryPercentageCall;
+
+  constructor(call: UpdateTreasuryPercentageCall) {
+    this._call = call;
+  }
+
+  get _percent(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class UpdateTreasuryPercentageCall__Outputs {
+  _call: UpdateTreasuryPercentageCall;
+
+  constructor(call: UpdateTreasuryPercentageCall) {
+    this._call = call;
+  }
+}
+
+export class WithdrawCall extends ethereum.Call {
+  get inputs(): WithdrawCall__Inputs {
+    return new WithdrawCall__Inputs(this);
+  }
+
+  get outputs(): WithdrawCall__Outputs {
+    return new WithdrawCall__Outputs(this);
+  }
+}
+
+export class WithdrawCall__Inputs {
+  _call: WithdrawCall;
+
+  constructor(call: WithdrawCall) {
+    this._call = call;
+  }
+}
+
+export class WithdrawCall__Outputs {
+  _call: WithdrawCall;
+
+  constructor(call: WithdrawCall) {
+    this._call = call;
+  }
+}
+
+export class WithdrawERC20Call extends ethereum.Call {
+  get inputs(): WithdrawERC20Call__Inputs {
+    return new WithdrawERC20Call__Inputs(this);
+  }
+
+  get outputs(): WithdrawERC20Call__Outputs {
+    return new WithdrawERC20Call__Outputs(this);
+  }
+}
+
+export class WithdrawERC20Call__Inputs {
+  _call: WithdrawERC20Call;
+
+  constructor(call: WithdrawERC20Call) {
+    this._call = call;
+  }
+
+  get _token(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class WithdrawERC20Call__Outputs {
+  _call: WithdrawERC20Call;
+
+  constructor(call: WithdrawERC20Call) {
+    this._call = call;
   }
 }
