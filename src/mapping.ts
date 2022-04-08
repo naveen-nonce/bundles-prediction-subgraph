@@ -5,6 +5,7 @@ import {
   MatchUpdated,
   OwnershipTransferred,
   LeagueAdded,
+  LeagueUpdated,
   PoolAdded,
   PoolUpdated,
   PoolPredicted,
@@ -13,7 +14,14 @@ import {
   GradedPools,
   AddMatchCall,
 } from "../generated/Prediction/Prediction";
-import { Prediction, Match, League, Pool, User, Admin } from "../generated/schema";
+import {
+  Prediction,
+  Match,
+  League,
+  Pool,
+  User,
+  Admin,
+} from "../generated/schema";
 
 export function handleAdminAccessSet(event: AdminAccessSet): void {
   let admin = Admin.load(event.params._admin.toString());
@@ -110,8 +118,6 @@ export function handlePredictionUpdated(event: PredictionUpdated): void {
 }
 
 export function handleMatchAdded(event: MatchAdded): void {
-  {
-  }
   let match = Match.load(event.params.matchId.toString());
 
   if (!match) {
@@ -123,14 +129,25 @@ export function handleMatchAdded(event: MatchAdded): void {
 }
 
 export function handleMatchUpdated(event: MatchUpdated): void {
-  {
-  }
   let match = Match.load(event.params.matchId.toString());
 
-  match = new Match(event.params.matchId.toString());
+  if (!match) {
+    match = new Match(event.params.matchId.toString());
+  }
   match.league = event.params.leagueId.toString();
   match.espnMatchId = event.params.espnMatchId;
   match.save();
+}
+
+export function handleLeagueUpdated(event: LeagueUpdated): void {
+  let league = League.load(event.params.leagueId.toString());
+
+  if (!league) {
+    league = new League(event.params.leagueId.toString());
+  }
+  league.name = event.params.name;
+  league.sport = event.params.sport;
+  league.save();
 }
 
 export function handleAddMatch(call: AddMatchCall): void {

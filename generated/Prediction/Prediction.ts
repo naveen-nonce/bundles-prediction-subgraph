@@ -419,11 +419,13 @@ export class Prediction__poolsResult {
   value0: BigInt;
   value1: BigInt;
   value2: BigInt;
+  value3: BigInt;
 
-  constructor(value0: BigInt, value1: BigInt, value2: BigInt) {
+  constructor(value0: BigInt, value1: BigInt, value2: BigInt, value3: BigInt) {
     this.value0 = value0;
     this.value1 = value1;
     this.value2 = value2;
+    this.value3 = value3;
   }
 
   toMap(): TypedMap<string, ethereum.Value> {
@@ -431,6 +433,7 @@ export class Prediction__poolsResult {
     map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
     map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
     map.set("value2", ethereum.Value.fromUnsignedBigInt(this.value2));
+    map.set("value3", ethereum.Value.fromUnsignedBigInt(this.value3));
     return map;
   }
 }
@@ -707,21 +710,22 @@ export class Prediction extends ethereum.SmartContract {
   pools(param0: BigInt): Prediction__poolsResult {
     let result = super.call(
       "pools",
-      "pools(uint256):(uint256,uint256,uint256)",
+      "pools(uint256):(uint256,uint256,uint256,uint256)",
       [ethereum.Value.fromUnsignedBigInt(param0)]
     );
 
     return new Prediction__poolsResult(
       result[0].toBigInt(),
       result[1].toBigInt(),
-      result[2].toBigInt()
+      result[2].toBigInt(),
+      result[3].toBigInt()
     );
   }
 
   try_pools(param0: BigInt): ethereum.CallResult<Prediction__poolsResult> {
     let result = super.tryCall(
       "pools",
-      "pools(uint256):(uint256,uint256,uint256)",
+      "pools(uint256):(uint256,uint256,uint256,uint256)",
       [ethereum.Value.fromUnsignedBigInt(param0)]
     );
     if (result.reverted) {
@@ -732,7 +736,8 @@ export class Prediction extends ethereum.SmartContract {
       new Prediction__poolsResult(
         value[0].toBigInt(),
         value[1].toBigInt(),
-        value[2].toBigInt()
+        value[2].toBigInt(),
+        value[3].toBigInt()
       )
     );
   }
@@ -1055,6 +1060,10 @@ export class AddPoolCall_poolStruct extends ethereum.Tuple {
 
   get fee(): BigInt {
     return this[4].toBigInt();
+  }
+
+  get totalRewards(): BigInt {
+    return this[5].toBigInt();
   }
 }
 
@@ -1469,6 +1478,10 @@ export class UpdatePoolCall_poolStruct extends ethereum.Tuple {
 
   get fee(): BigInt {
     return this[4].toBigInt();
+  }
+
+  get totalRewards(): BigInt {
+    return this[5].toBigInt();
   }
 }
 

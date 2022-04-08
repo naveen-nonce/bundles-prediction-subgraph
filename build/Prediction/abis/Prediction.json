@@ -494,6 +494,11 @@
             "internalType": "uint256",
             "name": "fee",
             "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalRewards",
+            "type": "uint256"
           }
         ],
         "internalType": "struct Prediction.Pool",
@@ -801,6 +806,11 @@
         "internalType": "uint256",
         "name": "fee",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalRewards",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -1016,6 +1026,11 @@
           {
             "internalType": "uint256",
             "name": "fee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalRewards",
             "type": "uint256"
           }
         ],

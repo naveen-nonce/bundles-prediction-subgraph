@@ -207,15 +207,6 @@ export class Match extends Entity {
   set espnMatchId(value: BigInt) {
     this.set("espnMatchId", Value.fromBigInt(value));
   }
-
-  get season(): i32 {
-    let value = this.get("season");
-    return value!.toI32();
-  }
-
-  set season(value: i32) {
-    this.set("season", Value.fromI32(value));
-  }
 }
 
 export class League extends Entity {
